@@ -1,13 +1,20 @@
-// Arnold Mendis
 var express = require("express");
 var app = express();
 var PORT = 8080;
+
 
 app.get('/:operator/:num1/:num2', function(req,res){
 	// /parses a string argument and returns an integer of the specific mathematical numeral function
 	var operator = req.params.operator
 	var num1 = parseInt(req.params.num1);
 	var num2 = parseInt(req.params.num2);
+	
+	// Check if num1 and num2 are valid numbers
+	if (isNaN(num1) || isNaN(num2)) {
+		res.status(400).send('Error: Invalid input parameters. Please provide valid integers.');
+		return;
+	}
+	
 	var result;
     //defining operators to support for the simple calculator
 	switch(operator){
@@ -52,7 +59,7 @@ app.get('/:operator/:num1/:num2', function(req,res){
 
 //Start an instance of our Express server, listening on port 8080
 app.get("/", function(req, res){
-	res.send("Your Server is Listening..")
+	res.send("Hello I'm listening ..")
 });
 
 //listener
